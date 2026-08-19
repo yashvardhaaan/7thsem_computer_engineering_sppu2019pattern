@@ -1,527 +1,842 @@
-# Best Case, Average Case and Worst Case Analysis
+# UNIT II — Analysis of Algorithms and Complexity Theory
 
-> **VERY IMPORTANT — Repeated PYQ**
->
-> 2022, 2023, 2025
+# 2. Best Case, Worst Case and Average Case Analysis
 
----
+> **🔥 VERY IMPORTANT — PYQ Frequency: 4/4 Years**
 
-# 1. What is Case Analysis?
-
-**Case analysis** studies the performance of an algorithm for different types of input of the same size.
-
-The three main cases are:
-
-```text id="f9l4wc"
-             Case Analysis
-                   │
-        ┌──────────┼──────────┐
-        ▼          ▼          ▼
-      Best       Average     Worst
-       Case        Case       Case
-        │           │          │
-     Minimum     Expected    Maximum
-      work        work        work
-```
-
-It is mainly used to analyze **time complexity**, but the same idea can be applied to other resources.
+This is one of the **highest-priority topics in Unit II**.
 
 ---
 
-# 2. Best Case
+# 2.1 What Is Case Analysis?
+
+The running time of an algorithm can change depending on the particular input given to it.
+
+Therefore, instead of considering only one input, we analyze the algorithm under different possible conditions.
+
+The three important cases are:
+
+1. **Best Case**
+2. **Worst Case**
+3. **Average Case**
+
+---
+
+# 2.2 Best Case Analysis
 
 ## Definition
 
-The **best case** is the input arrangement for which the algorithm performs the **minimum number of operations** for a given input size.
+The **best case** represents the minimum amount of time or number of operations required by an algorithm for any input of size `n`.
 
-In simple words:
+In other words:
 
-> **Best case = minimum work**
+> Best case is the situation in which the algorithm performs the minimum possible work.
 
-### Example: Linear Search
+It is generally represented using:
 
-```text id="y1a5nq"
-A = [10, 20, 30, 40, 50]
-Search = 10
+```text
+T_best(n)
 ```
-
-The required element is the first element.
-
-Only one comparison is needed.
-
-```text id="f1x3ad"
-Comparisons = 1
-```
-
-Therefore:
-
-**Best Case = O(1)**
 
 ---
 
-# 3. Worst Case
+## Example — Linear Search
 
-## Definition
+Consider linear search:
 
-The **worst case** is the input arrangement for which the algorithm performs the **maximum number of operations** for a given input size.
+```text
+LinearSearch(A, n, key)
 
-In simple words:
-
-> **Worst case = maximum work**
-
-### Example: Linear Search
-
-```text id="0ykp6t"
-A = [10, 20, 30, 40, 50]
-Search = 50
-```
-
-The algorithm checks every element.
-
-```text id="g6p1s8"
-Comparisons = 5
-```
-
-If the element is not present:
-
-```text id="7s7x0n"
-A = [10, 20, 30, 40, 50]
-Search = 100
-```
-
-Again, all 5 elements are checked.
-
-For `n` elements:
-
-**Worst Case = O(n)**
-
----
-
-# 4. Average Case
-
-## Definition
-
-The **average case** describes the expected performance of an algorithm over the possible inputs of a given size, according to an assumed probability distribution.
-
-In simple words:
-
-> **Average case = expected amount of work**
-
-For Linear Search, if the searched element is equally likely to be at any of the `n` positions:
-
-```text id="zj8m8t"
-Comparisons:
-
-1, 2, 3, 4, ..., n
-```
-
-Average number of comparisons:
-
-```text id="2zq0zz"
-(1 + 2 + 3 + ... + n) / n
-```
-
-Since:
-
-```text id="gq2u2b"
-1 + 2 + ... + n = n(n+1)/2
-```
-
-Average:
-
-```text id="9v3g47"
-[n(n+1)/2] / n
-= (n+1)/2
-```
-
-Therefore:
-
-**Average Case = O(n)**
-
----
-
-# 5. Linear Search — Complete Case Analysis
-
-Consider:
-
-```text id="5xw9fo"
-LinearSearch(A, n, x)
-
-for i = 0 to n-1:
-    if A[i] == x:
+for i = 0 to n-1
+    if A[i] == key
         return i
-
-return -1
 ```
 
----
+Suppose:
 
-## Best Case
-
-The element is found at the first position.
-
-```text id="4kvw2k"
+```text
 A = [10, 20, 30, 40, 50]
-x = 10
+key = 10
 ```
 
-Comparisons:
+The required element is at the first position.
 
-```text id="13f6sy"
-1
-```
+Only one comparison is required.
 
 Therefore:
 
-**Best Case = O(1)**
+```text
+T_best(n) = 1
+```
+
+Hence:
+
+```text
+Best-case complexity = O(1)
+```
 
 ---
 
-## Worst Case
+# 2.3 Worst Case Analysis
 
-The element is:
+## Definition
 
-* At the last position, or
-* Not present.
+The **worst case** represents the maximum amount of time or number of operations required by an algorithm for any input of size `n`.
 
-Example:
+In other words:
 
-```text id="z3f7o4"
+> Worst case is the situation in which the algorithm performs the maximum possible work.
+
+It is generally represented using:
+
+```text
+T_worst(n)
+```
+
+---
+
+## Example — Linear Search
+
+Suppose:
+
+```text
 A = [10, 20, 30, 40, 50]
-x = 50
+key = 50
 ```
 
-Comparisons:
-
-```text id="opb5ut"
-5
-```
-
-For `n` elements:
-
-**Worst Case = O(n)**
-
----
-
-## Average Case
-
-Assume the element is equally likely to occur at any position.
-
-Comparisons:
-
-```text id="q3x8o1"
-1 + 2 + 3 + ... + n
-```
-
-Average:
-
-```text id="q2r2nm"
-(n+1)/2
-```
-
-Ignoring constants:
-
-**Average Case = O(n)**
-
----
-
-# 6. Summary of Linear Search
-
-| Case        | Situation                              | Comparisons | Complexity |
-| ----------- | -------------------------------------- | ----------: | ---------- |
-| **Best**    | Element at first position              |         `1` | **O(1)**   |
-| **Average** | Element equally likely at any position |   `(n+1)/2` | **O(n)**   |
-| **Worst**   | Last position / not present            |         `n` | **O(n)**   |
-
----
-
-# 7. Best Case Does Not Always Give a Clear Idea of Performance
-
-### PYQ 2023 — 2 Marks
-
-> **"Comment on the statement: Best case analysis of algorithm may not give clear idea of performance."**
-
-### Answer
-
-Yes, the statement is correct.
-
-Best-case analysis considers only the **most favorable input**, which may rarely occur in practice.
-
-For example, in Linear Search:
-
-```text id="whp8f4"
-Best case → O(1)
-Worst case → O(n)
-Average    → O(n)
-```
-
-If we consider only the best case, we might incorrectly conclude that Linear Search is always very fast.
+The algorithm has to examine all five elements.
 
 Therefore:
 
-> **Best-case analysis alone does not provide a complete picture of an algorithm's performance. Average-case and worst-case analysis are also important.**
+```text
+T_worst(n) = n
+```
+
+Hence:
+
+```text
+Worst-case complexity = O(n)
+```
+
+The worst case also occurs when the required element is **not present** in the array.
 
 ---
 
-# 8. Is Average Case Simply the Average of Best and Worst Case?
+# 2.4 Average Case Analysis
 
-### PYQ 2023 — 7 Marks
+## Definition
 
-**No.**
+The **average case** represents the expected amount of time or number of operations required by an algorithm over all possible inputs of size `n`, according to an assumed probability distribution.
 
-Average-case efficiency is **not** generally:
+It is generally represented using:
 
-```text id="i3j0c8"
-(Best Case + Worst Case) / 2
+```text
+T_avg(n)
 ```
 
-Instead, average-case analysis considers the **expected cost over all possible inputs**, based on an assumed probability distribution.
-
-### Example — Linear Search
-
-For `n` elements, possible successful search positions require:
-
-```text id="s8h20q"
-1, 2, 3, ..., n
-```
-
-If each position is equally likely:
-
-```text id="uxu7sp"
-Average
-= (1 + 2 + ... + n) / n
-= (n+1)/2
-```
-
-This is not obtained by simply averaging:
-
-```text id="f80m0b"
-Best = 1
-Worst = n
-
-(1 + n)/2
-```
-
-Although for this particular uniform linear-search example the expressions are closely related, **the general definition of average-case analysis is probability-weighted expected cost, not the arithmetic mean of best and worst cases**.
+The average case is usually more difficult to calculate because it requires assumptions about the probability of different inputs.
 
 ---
 
-# 9. General Formula for Average Case
+## Example — Linear Search
 
-If possible inputs are:
-
-```text id="0a2kjm"
-I₁, I₂, I₃, ..., Iₖ
-```
-
-and each input has probability:
-
-```text id="2vprl6"
-P(I₁), P(I₂), ..., P(Iₖ)
-```
-
-then:
-
-```text id="d2n0n6"
-Average Cost
-=
-Σ [P(Iᵢ) × Cost(Iᵢ)]
-```
-
-In simple terms:
-
-> **Average Case = Probability × Cost, summed over all possible cases.**
-
----
-
-# 10. Example of Probability-Weighted Average
-
-Suppose an algorithm has three possible cases:
-
-| Case |          Cost | Probability |
-| ---- | ------------: | ----------: |
-| A    |   1 operation |         0.5 |
-| B    |  5 operations |         0.3 |
-| C    | 10 operations |         0.2 |
-
-Average cost:
-
-```text id="fuj7pk"
-= (0.5 × 1)
-+ (0.3 × 5)
-+ (0.2 × 10)
-
-= 0.5 + 1.5 + 2
-
-= 4 operations
-```
-
-So the average-case cost is **4 operations**.
-
-It is clearly not simply:
-
-```text id="oxq2e3"
-(1 + 10) / 2 = 5.5
-```
-
----
-
-# 11. Another Example — Selection Sort
-
-Selection Sort performs almost the same number of comparisons regardless of the initial arrangement.
-
-For `n` elements:
-
-```text id="b6y36d"
-Comparisons =
-(n-1) + (n-2) + ... + 1
-
-= n(n-1)/2
-```
-
-Therefore:
-
-```text id="h4b3a7"
-Best Case    → O(n²)
-Average Case → O(n²)
-Worst Case   → O(n²)
-```
-
-This shows why the three cases can sometimes have the **same asymptotic complexity**.
-
----
-
-# 12. Best, Average and Worst Case — Comparison
-
-| Feature               | Best Case               | Average Case               | Worst Case                |
-| --------------------- | ----------------------- | -------------------------- | ------------------------- |
-| Meaning               | Minimum work            | Expected work              | Maximum work              |
-| Input                 | Most favorable          | Typical/probabilistic      | Least favorable           |
-| Gives guarantee?      | No                      | Depends on assumptions     | Yes, upper-bound behavior |
-| Usefulness            | Shows ideal performance | Shows expected performance | Important for guarantees  |
-| Example Linear Search | O(1)                    | O(n)                       | O(n)                      |
-
----
-
-# 13. Why Worst Case Is Important
-
-Worst-case analysis is useful when we need a guarantee that the algorithm will not exceed a certain amount of work.
-
-Examples:
-
-* Real-time systems
-* Safety-critical systems
-* Large-scale systems
-* Systems with strict response-time requirements
-
-If an algorithm has:
-
-```text id="7rmyi6"
-Worst Case = O(n²)
-```
-
-we know its growth will not exceed that asymptotic bound under the stated model.
-
----
-
-# 14. Why Average Case Is Important
-
-Average-case analysis is useful when:
-
-* Inputs vary significantly.
-* We want to understand typical performance.
-* A worst-case input is unlikely.
-* We can reasonably model the probability distribution of inputs.
-
-However, the probability assumptions must be realistic.
-
----
-
-# 15. Why Best Case Is Still Useful
-
-Best-case analysis is not useless.
-
-It helps us understand:
-
-* The minimum possible work.
-* Whether an algorithm can terminate early.
-* How input arrangement affects performance.
-* Situations where the algorithm performs exceptionally well.
-
-But it should **not be the only measure** used to judge an algorithm.
-
----
-
-# 16. Exam Answer — 8 Marks
-
-### Definition
-
-> **Best, average and worst-case analysis** are methods of analyzing the performance of an algorithm for different inputs of the same size.
-
-### Best Case
-
-The best case is the input for which the algorithm performs the minimum number of operations.
-
-### Average Case
-
-The average case is the expected number of operations over all possible inputs, according to an assumed probability distribution.
-
-### Worst Case
-
-The worst case is the input for which the algorithm performs the maximum number of operations.
-
-### Example — Linear Search
+Suppose the element being searched is equally likely to occur at any position.
 
 For an array of `n` elements:
 
-```text id="yl30n9"
-Best Case:
-Element at first position
-→ O(1)
-
-Average Case:
-Element equally likely at any position
-→ (n+1)/2 comparisons
-→ O(n)
-
-Worst Case:
-Element at last position or absent
-→ n comparisons
-→ O(n)
+```text
+Position       Comparisons
+1              1
+2              2
+3              3
+...
+n              n
 ```
 
-### Conclusion
+The average number of comparisons is:
 
-> Best-case analysis shows minimum work, average-case analysis shows expected work, and worst-case analysis shows maximum work. Average-case efficiency is not generally the arithmetic average of best and worst cases; it is calculated using the probability distribution of possible inputs.
+```text
+(1 + 2 + 3 + ... + n) / n
+```
+
+Using:
+
+```text
+1 + 2 + ... + n = n(n + 1) / 2
+```
+
+we get:
+
+```text
+Average comparisons
+= [n(n + 1) / 2] / n
+= (n + 1) / 2
+```
+
+Therefore:
+
+```text
+T_avg(n) = (n + 1) / 2
+```
+
+Ignoring constants and lower-order terms:
+
+```text
+T_avg(n) = Θ(n)
+```
 
 ---
 
-# Quick Revision
+# 2.5 Comparison of Three Cases
 
-```text id="0udkgt"
-BEST
+| Case         | Meaning       | Linear Search |
+| ------------ | ------------- | ------------- |
+| Best Case    | Minimum work  | `O(1)`        |
+| Average Case | Expected work | `O(n)`        |
+| Worst Case   | Maximum work  | `O(n)`        |
+
+---
+
+# 2.6 General Formula
+
+For an algorithm, we can think of the three cases as:
+
+```text
+Best Case:
+Minimum number of operations
+
+Average Case:
+Expected number of operations
+
+Worst Case:
+Maximum number of operations
+```
+
+Mathematically:
+
+```text
+T_best(n) ≤ T_avg(n) ≤ T_worst(n)
+```
+
+The exact relationship depends on how the average is defined, but conceptually the average lies between the minimum and maximum behavior.
+
+---
+
+# 2.7 Example — Insertion Sort
+
+Consider insertion sort.
+
+### Best Case
+
+The array is already sorted:
+
+```text
+[1, 2, 3, 4, 5]
+```
+
+Very few shifts/comparisons are required.
+
+Therefore:
+
+```text
+Best case = Θ(n)
+```
+
+### Worst Case
+
+The array is in reverse order:
+
+```text
+[5, 4, 3, 2, 1]
+```
+
+Maximum shifting is required.
+
+Therefore:
+
+```text
+Worst case = Θ(n²)
+```
+
+### Average Case
+
+For a randomly ordered array, the algorithm performs an intermediate amount of work.
+
+Therefore:
+
+```text
+Average case = Θ(n²)
+```
+
+---
+
+# 2.8 Example — Selection Sort
+
+Selection sort repeatedly finds the minimum element from the unsorted portion.
+
+The number of comparisons is approximately:
+
+```text
+n(n - 1) / 2
+```
+
+This number is essentially independent of the initial ordering of the array.
+
+Therefore:
+
+```text
+Best Case    = Θ(n²)
+Average Case = Θ(n²)
+Worst Case   = Θ(n²)
+```
+
+This is an important example because **not every algorithm has different complexities for the three cases**.
+
+---
+
+# 2.9 Why Do We Analyze Different Cases?
+
+Case analysis is important because the same algorithm may behave differently for different inputs.
+
+For example, linear search:
+
+```text
+Input:
+[10, 20, 30, 40, 50]
+```
+
+Searching for:
+
+```text
+10 → 1 comparison
+30 → 3 comparisons
+50 → 5 comparisons
+100 → 5 comparisons
+```
+
+Therefore, simply saying:
+
+```text
+Linear Search = O(n)
+```
+
+does not tell the complete story.
+
+We need to understand how the algorithm behaves under different inputs.
+
+---
+
+# 2.10 Best Case — Advantages and Limitations
+
+## Advantages
+
+* Shows the minimum possible work.
+* Useful for understanding the most favorable input.
+* Helps identify algorithms that can terminate quickly for certain inputs.
+
+## Limitation
+
+The best case may occur rarely.
+
+Therefore, relying only on best-case analysis may give a misleading picture of the algorithm's general performance.
+
+---
+
+# 2.11 Worst Case — Advantages
+
+Worst-case analysis is widely used because it provides a performance guarantee.
+
+If an algorithm has:
+
+```text
+O(n²)
+```
+
+worst-case complexity, we know that its running time will not grow faster than the specified asymptotic bound under the stated assumptions.
+
+Worst-case analysis is particularly useful when performance guarantees are important.
+
+---
+
+# 2.12 Average Case — Importance
+
+Average-case analysis attempts to describe how the algorithm behaves for typical inputs.
+
+However, it requires a probability model.
+
+For example, in linear search, assuming every position is equally likely gives:
+
+```text
+Average comparisons = (n + 1) / 2
+```
+
+But if some positions are more likely than others, the average changes.
+
+Therefore:
+
+> Average-case complexity depends on the assumed distribution of inputs.
+
+---
+
+# 2.13 Is Average Case Simply the Average of Best and Worst Cases?
+
+**No.**
+
+This is an important PYQ concept.
+
+The average case is **not generally calculated as:**
+
+```text
+(Best Case + Worst Case) / 2
+```
+
+Instead, it is calculated using the probability of different inputs.
+
+General form:
+
+```text
+T_avg(n) = Σ P(I) × T(I)
+```
+
+where:
+
+* `P(I)` = probability of input `I`
+* `T(I)` = running time for input `I`
+
+Therefore, the average case depends on the **probability distribution of inputs**.
+
+---
+
+# 2.14 Example Showing Why Average ≠ (Best + Worst)/2
+
+Consider linear search with `n` elements.
+
+Best case:
+
+```text
+1 comparison
+```
+
+Worst case:
+
+```text
+n comparisons
+```
+
+If we simply averaged them:
+
+```text
+(1 + n) / 2
+```
+
+we happen to obtain the same expression as the average number of comparisons when all positions are equally likely.
+
+But this is **not because average case is always the midpoint**.
+
+Suppose the first position is searched 80% of the time.
+
+Then the average behavior would be heavily influenced by that probability.
+
+Therefore:
+
+> Average-case analysis requires a probability distribution and is not simply the arithmetic mean of best and worst cases.
+
+---
+
+# 2.15 Important Difference
+
+| Feature            | Best Case      | Average Case          | Worst Case            |
+| ------------------ | -------------- | --------------------- | --------------------- |
+| Meaning            | Minimum work   | Expected work         | Maximum work          |
+| Input              | Most favorable | Typical/probabilistic | Least favorable       |
+| Probability needed | No             | Usually yes           | No                    |
+| Usefulness         | Limited        | Practical performance | Performance guarantee |
+| Linear Search      | `O(1)`         | `O(n)`                | `O(n)`                |
+
+---
+
+# 2.16 PYQs
+
+## PYQ 1 — 2022
+
+> **"What is Best, Average and Worst case Analysis of Algorithms? Analyse the following algorithm Best, Average and Worst case."** `[8 Marks]`
+
+### What to prepare
+
+You should be able to:
+
+1. Define all three cases.
+2. Explain the difference.
+3. Analyze the given algorithm.
+4. Identify the number of operations.
+5. Give complexity for each case.
+
+---
+
+## PYQ 2 — 2022
+
+> **"What is Best, Average and Worst case Analysis of Algorithms? Analyse the following algorithm Best, Average and Worst case."**
+
+This concept also appeared specifically with **linear search**.
+
+### Expected answer
+
+For linear search:
+
+```text
+Best Case    = O(1)
+Average Case = O(n)
+Worst Case   = O(n)
+```
+
+---
+
+## PYQ 3 — 2023
+
+> **"Comment on the statement 'Best case analysis of algorithm may not give clear idea of performance'."** `[2 Marks]`
+
+### Answer
+
+Best-case analysis considers only the most favorable input.
+
+Such an input may occur rarely in practice.
+
+Therefore, best-case analysis alone may not represent the algorithm's typical or guaranteed performance.
+
+For example, linear search has:
+
+```text
+Best Case = O(1)
+```
+
+but in many situations the algorithm may need to examine a large portion of the array.
+
+Therefore, best-case analysis should not be used alone to judge overall algorithm performance.
+
+---
+
+## PYQ 4 — 2023
+
+> **"What do you understand by best case, worst case and average-case behaviour of an algorithm? Is an average case efficiency an average of best-case, worst-case efficiencies? Justify answer."** `[7 Marks]`
+
+### Answer Structure
+
+#### Best Case
+
+Minimum number of operations for an input of size `n`.
+
+#### Worst Case
+
+Maximum number of operations for an input of size `n`.
+
+#### Average Case
+
+Expected number of operations over possible inputs according to an assumed probability distribution.
+
+#### Is Average Case the Average of Best and Worst?
+
+**No.**
+
+Average-case efficiency is calculated using the probability of different inputs:
+
+```text
+T_avg(n) = Σ P(I) × T(I)
+```
+
+It is not generally:
+
+```text
+(Best + Worst) / 2
+```
+
+The probability distribution of inputs determines the average case.
+
+---
+
+## PYQ 5 — 2025
+
+> **"What is best, average and worst case Analysis of algorithms? Analyse the following algorithm Best, Average and worst case."** `[8 Marks]`
+
+This is essentially the same recurring pattern as the 2022 question.
+
+### Preparation
+
+Be prepared to:
+
+```text
+Define the three cases
+        ↓
+Understand the given algorithm
+        ↓
+Identify input size n
+        ↓
+Count dominant operations
+        ↓
+Determine minimum operations
+        ↓
+Determine maximum operations
+        ↓
+Calculate average operations
+        ↓
+Express using asymptotic notation
+```
+
+---
+
+# 2.17 How to Solve a Best/Average/Worst Case Question
+
+When an algorithm is given in the exam, follow these steps.
+
+## Step 1 — Identify the Input Size
+
+Determine what `n` represents.
+
+Example:
+
+```text
+n = number of elements in array
+```
+
+---
+
+## Step 2 — Identify the Dominant Operation
+
+Find the operation that executes repeatedly.
+
+Examples:
+
+```text
+comparison
+assignment
+addition
+swap
+loop iteration
+```
+
+---
+
+## Step 3 — Find the Best Case
+
+Ask:
+
+> What input causes the minimum number of operations?
+
+---
+
+## Step 4 — Find the Worst Case
+
+Ask:
+
+> What input causes the maximum number of operations?
+
+---
+
+## Step 5 — Calculate Average Case
+
+Ask:
+
+> What is the expected number of operations under the assumed input distribution?
+
+---
+
+## Step 6 — Express the Complexity
+
+Use asymptotic notation:
+
+```text
+O(...)
+Θ(...)
+Ω(...)
+```
+
+depending on what the question asks.
+
+---
+
+# 2.18 Common Examples
+
+| Algorithm      |    Best |    Average |      Worst |
+| -------------- | ------: | ---------: | ---------: |
+| Linear Search  |  `O(1)` |     `O(n)` |     `O(n)` |
+| Binary Search  |  `O(1)` | `O(log n)` | `O(log n)` |
+| Insertion Sort |  `O(n)` |    `O(n²)` |    `O(n²)` |
+| Selection Sort | `Θ(n²)` |    `Θ(n²)` |    `Θ(n²)` |
+| Bubble Sort*   |  `O(n)` |    `O(n²)` |    `O(n²)` |
+
+> *For the optimized version of bubble sort.
+
+---
+
+# 2.19 Common Mistakes
+
+### Mistake 1 — Saying average case is always the midpoint
+
+Incorrect:
+
+```text
+Average = (Best + Worst) / 2
+```
+
+Correct:
+
+```text
+Average case depends on the probability distribution of inputs.
+```
+
+---
+
+### Mistake 2 — Assuming every algorithm has different complexities
+
+Incorrect.
+
+Selection sort has:
+
+```text
+Best    = Θ(n²)
+Average = Θ(n²)
+Worst   = Θ(n²)
+```
+
+---
+
+### Mistake 3 — Confusing Big-O with Worst Case
+
+Big-O notation describes an asymptotic upper bound.
+
+Although Big-O is commonly used when discussing worst-case running time, the two concepts are not mathematically identical.
+
+---
+
+### Mistake 4 — Ignoring assumptions
+
+Average-case analysis requires assumptions about input distribution.
+
+Always mention the assumption when calculating average complexity.
+
+---
+
+# 2.20 Exam-Ready Definition
+
+### Best Case
+
+The best-case complexity of an algorithm is the minimum amount of computational work performed by the algorithm for any input of size `n`.
+
+### Average Case
+
+The average-case complexity represents the expected computational work performed over all possible inputs of size `n`, based on an assumed probability distribution.
+
+### Worst Case
+
+The worst-case complexity represents the maximum amount of computational work performed by an algorithm for any input of size `n`.
+
+---
+
+# 2.21 Exam-Ready 8-Mark Answer
+
+## Best, Average and Worst Case Analysis
+
+Algorithm analysis determines the efficiency of an algorithm for different possible inputs.
+
+### 1. Best Case
+
+Best-case analysis determines the minimum number of operations performed by an algorithm for an input of size `n`.
+
+It represents the most favorable input.
+
+Example: In linear search, if the required element is at the first position:
+
+```text
+Best Case = O(1)
+```
+
+### 2. Average Case
+
+Average-case analysis determines the expected number of operations for inputs of size `n`.
+
+It requires an assumption about the probability distribution of inputs.
+
+For linear search, if every position is equally likely:
+
+```text
+Average comparisons = (n + 1) / 2
+```
+
+Therefore:
+
+```text
+Average Case = O(n)
+```
+
+### 3. Worst Case
+
+Worst-case analysis determines the maximum number of operations performed for an input of size `n`.
+
+In linear search, if the element is at the last position or absent:
+
+```text
+Worst Case = O(n)
+```
+
+### Comparison
+
+| Case    | Linear Search |
+| ------- | ------------- |
+| Best    | `O(1)`        |
+| Average | `O(n)`        |
+| Worst   | `O(n)`        |
+
+### Conclusion
+
+Best-case analysis shows the minimum performance, average-case analysis shows expected performance under an assumed input distribution, and worst-case analysis provides the maximum amount of work. All three are useful for understanding the behavior of an algorithm.
+
+---
+
+# 2.22 Quick Revision
+
+```text
+BEST CASE
 ↓
 Minimum work
 ↓
 Most favorable input
 
-AVERAGE
+AVERAGE CASE
 ↓
 Expected work
 ↓
-Probability-weighted inputs
+Probability distribution required
 
-WORST
+WORST CASE
 ↓
 Maximum work
 ↓
 Least favorable input
 ```
 
-### Most Important Points
+### Most Important PYQ Points
 
-* **Best ≠ Average ≠ Worst**
-* Average case is **not generally `(Best + Worst)/2`**
-* Linear Search: **O(1), O(n), O(n)**
-* Selection Sort: **O(n²), O(n²), O(n²)**
-* Best case alone **does not give a complete picture** of performance.
+* Define best, average and worst case.
+* Analyze a given algorithm under all three cases.
+* Explain why best-case analysis may not provide a clear picture.
+* Explain why average case is **not simply** the average of best and worst cases.
+* Know linear search analysis.
+* Know insertion sort analysis.
+* Know selection sort analysis.
+
+---
+
+# 2.23 Priority
+
+**🔥 PYQ Frequency: 4/4 years**
+
+**🔥 Importance: VERY HIGH**
+
+**Must prepare thoroughly.**
+
+This topic should be studied together with:
+
+* Counting Dominant Operators
+* Input Size
+* Growth Rate
+* Asymptotic Notations
+* Sorting and Searching Algorithms

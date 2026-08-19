@@ -1,348 +1,64 @@
-# Input Size
+# UNIT II — Analysis of Algorithms and Complexity Theory
 
-## 1. What is Input Size?
+# 1. Input Size
 
-**Input size** is the amount of data given to an algorithm as input.
+## 1.1 Definition
 
-It is usually represented by **`n`** and is one of the most important factors in analyzing the **time and space complexity** of an algorithm.
+**Input size** refers to the amount of data that an algorithm receives as input.
 
-### Examples
+It is usually represented by **`n`** and is one of the most important factors used to analyze the efficiency of an algorithm.
 
-| Problem          | Input Size                                                           |
-| ---------------- | -------------------------------------------------------------------- |
-| Array of numbers | `n` = number of elements                                             |
-| String           | `n` = number of characters                                           |
-| Matrix           | `n` = number of rows/columns, depending on the problem               |
-| Graph            | `V` = number of vertices, `E` = number of edges                      |
-| Number problem   | `n` = number of digits/bits or magnitude, depending on the algorithm |
+For example:
+
+* An array containing `n` elements → input size = `n`
+* A string containing `n` characters → input size = `n`
+* A graph with `V` vertices and `E` edges → input size can be represented using `V` and `E`
+* A matrix of size `n × n` → input size is related to `n²` elements
+
+The running time and memory requirements of an algorithm are generally expressed as a function of the input size.
 
 ---
 
-# 2. Why is Input Size Important?
+## 1.2 Why Input Size Is Important
 
-The running time of an algorithm usually depends on the size of its input.
+The performance of an algorithm often depends on how large its input is.
+
+Consider an algorithm that searches an element in an array.
+
+For an array containing:
+
+* `10` elements → at most 10 elements may need to be checked
+* `1,000` elements → at most 1,000 elements may need to be checked
+* `1,000,000` elements → potentially 1,000,000 elements may need to be checked
+
+Therefore, instead of measuring execution time for every possible input, we express the performance as a function of **`n`**.
 
 For example:
 
 ```text
-Input size = n
-       ↓
-Algorithm performs operations
-       ↓
-Number of operations depends on n
-       ↓
-Time Complexity
+T(n) = n
 ```
 
-If an algorithm takes one operation for every element:
-
-```text
-n = 10      → approximately 10 operations
-n = 100     → approximately 100 operations
-n = 1000    → approximately 1000 operations
-```
-
-Therefore:
-
-**Time Complexity = O(n)**
+means that the running time grows linearly with the input size.
 
 ---
 
-# 3. Input Size and Complexity
+## 1.3 Input Size and Complexity Analysis
 
-Consider:
+Input size is the basis for calculating:
 
-```text
-for i = 0 to n-1:
-    process(A[i])
-```
+* **Time complexity**
+* **Space complexity**
+* **Best-case complexity**
+* **Worst-case complexity**
+* **Average-case complexity**
+* **Asymptotic growth**
 
-If the array contains `n` elements, the loop executes `n` times.
-
-Therefore:
-
-```text
-Input Size = n
-Number of iterations = n
-Time Complexity = O(n)
-```
-
----
-
-# 4. Input Size in Different Algorithms
-
-The same input size can result in very different running times.
-
-Suppose an array contains `n` elements.
-
-### Linear Algorithm
+For example, consider:
 
 ```text
-for i = 0 to n-1:
-    process(A[i])
-```
-
-Complexity:
-
-**O(n)**
-
-### Quadratic Algorithm
-
-```text
-for i = 0 to n-1:
-    for j = 0 to n-1:
-        process(A[i], A[j])
-```
-
-Complexity:
-
-**O(n²)**
-
-### Logarithmic Algorithm
-
-Binary Search approximately halves the search space:
-
-```text
-n → n/2 → n/4 → n/8 → ...
-```
-
-Complexity:
-
-**O(log n)**
-
----
-
-# 5. Input Size in Selection Sort
-
-This is particularly relevant to the **2024 PYQ**, where Selection Sort operates on an array of `n` numbers.
-
-For example:
-
-```text
-A = [64, 25, 12, 22, 11]
-```
-
-Here:
-
-```text
-n = 5
-```
-
-Selection Sort repeatedly searches for the smallest remaining element.
-
-The number of comparisons is approximately:
-
-```text
-(n-1) + (n-2) + ... + 2 + 1
-```
-
-This gives:
-
-```text
-n(n-1)/2
-```
-
-Therefore:
-
-**Time Complexity = O(n²)**
-
-The important point is that the complexity is expressed in terms of the **input size `n`**.
-
----
-
-# 6. Input Size Is Not Always Simply `n`
-
-The meaning of input size depends on the problem.
-
-### Array
-
-```text
-A = [10, 20, 30, 40]
-```
-
-Input size:
-
-```text
-n = 4 elements
-```
-
-### String
-
-```text
-"HELLO"
-```
-
-Input size:
-
-```text
-n = 5 characters
-```
-
-### Graph
-
-For graphs, two parameters are commonly used:
-
-```text
-V = number of vertices
-E = number of edges
-```
-
-So an algorithm may have complexity such as:
-
-```text
-O(V + E)
-```
-
-rather than simply `O(n)`.
-
----
-
-# 7. Input Size and Growth
-
-The purpose of using `n` is to study what happens when the input becomes larger.
-
-```text
-             Input Size
-                 n
-                 │
-                 ▼
-          Algorithm runs
-                 │
-                 ▼
-          Work increases
-                 │
-                 ▼
-       Analyze growth rate
-                 │
-                 ▼
-          Time Complexity
-```
-
-For example:
-
-```text
-n = 10
-```
-
-An `O(n²)` algorithm performs roughly proportional to:
-
-```text
-10² = 100
-```
-
-For:
-
-```text
-n = 1000
-```
-
-it becomes roughly:
-
-```text
-1000² = 1,000,000
-```
-
-This shows why input size is important in algorithm analysis.
-
----
-
-# 8. Input Size vs Actual Input Value
-
-Input size should not always be confused with the **value of the input**.
-
-For example, suppose the input is:
-
-```text
-n = 1,000,000
-```
-
-The input size may depend on how the problem is represented.
-
-For an integer, complexity can sometimes be expressed in terms of the **number of bits/digits needed to represent it**, rather than the numerical value itself.
-
-For arrays, however, the natural input size is usually the **number of elements**.
-
----
-
-# 9. Best, Average and Worst Case
-
-Input size is also used when analyzing different cases.
-
-Example: **Linear Search**
-
-For an array of `n` elements:
-
-### Best Case
-
-Element is found at the first position.
-
-```text
-Time = O(1)
-```
-
-### Average Case
-
-Element is found somewhere in the middle on average.
-
-```text
-Time = O(n)
-```
-
-### Worst Case
-
-Element is at the last position or not present.
-
-```text
-Time = O(n)
-```
-
-The input size remains `n`; what changes is the amount of work performed for different inputs.
-
----
-
-# 10. Important Terms
-
-### Input
-
-The data provided to the algorithm.
-
-### Input Size
-
-The amount of data provided.
-
-### `n`
-
-A common variable used to represent input size.
-
-### Complexity
-
-How the algorithm's resource usage grows as input size increases.
-
-```text
-Input Size → n
-      ↓
-Algorithm
-      ↓
-Operations / Memory
-      ↓
-Complexity
-```
-
----
-
-# 11. Exam-Oriented Answer
-
-### Definition
-
-> **Input size is the amount of data provided to an algorithm and is generally represented by `n`. It is an important parameter in algorithm analysis because the running time and memory requirements of an algorithm depend on the size of its input.**
-
-### Example
-
-For an array containing `n` elements:
-
-```text
-for i = 0 to n-1:
-    process(A[i])
+for i = 1 to n
+    print(i)
 ```
 
 The loop executes `n` times.
@@ -350,31 +66,342 @@ The loop executes `n` times.
 Therefore:
 
 ```text
-Input Size = n
-Time Complexity = O(n)
+T(n) = n
 ```
 
-For Selection Sort, an array of `n` elements requires approximately:
+and the time complexity is:
 
 ```text
-n(n-1)/2
+O(n)
 ```
 
-comparisons.
+If the algorithm contains two nested loops:
+
+```text
+for i = 1 to n
+    for j = 1 to n
+        print(i, j)
+```
+
+The inner operation executes approximately:
+
+```text
+n × n = n²
+```
+
+times.
 
 Therefore:
 
 ```text
-Time Complexity = O(n²)
+T(n) = n²
 ```
 
-### Conclusion
+and the time complexity is:
 
-> Input size is essential for determining how an algorithm scales and for comparing the efficiency of different algorithms.
+```text
+O(n²)
+```
 
 ---
 
-# Quick Revision
+## 1.4 Input Size in Different Problems
+
+The meaning of input size depends on the problem.
+
+### Array
+
+For an array:
+
+```text
+A = [10, 20, 30, 40, 50]
+```
+
+there are 5 elements.
+
+Therefore:
+
+```text
+n = 5
+```
+
+Generally:
+
+```text
+Input size = n
+```
+
+---
+
+### String
+
+For:
+
+```text
+"HELLO"
+```
+
+there are 5 characters.
+
+Therefore:
+
+```text
+n = 5
+```
+
+---
+
+### Matrix
+
+For an `n × n` matrix:
+
+```text
+n × n = n²
+```
+
+elements are present.
+
+For example, a `4 × 4` matrix contains:
+
+```text
+4² = 16 elements
+```
+
+---
+
+### Graph
+
+For a graph, input size is commonly represented using:
+
+```text
+V = number of vertices
+E = number of edges
+```
+
+Therefore, graph algorithms may have complexity such as:
+
+```text
+O(V + E)
+```
+
+or:
+
+```text
+O(V²)
+```
+
+depending on the algorithm and graph representation.
+
+---
+
+## 1.5 Input Size and Running Time
+
+The relationship between input size and running time is called the **growth rate** of the algorithm.
+
+Common growth rates include:
+
+| Complexity   | Growth with input |
+| ------------ | ----------------- |
+| `O(1)`       | Constant          |
+| `O(log n)`   | Logarithmic       |
+| `O(n)`       | Linear            |
+| `O(n log n)` | Linearithmic      |
+| `O(n²)`      | Quadratic         |
+| `O(n³)`      | Cubic             |
+| `O(2ⁿ)`      | Exponential       |
+| `O(n!)`      | Factorial         |
+
+As `n` becomes larger, algorithms with slower growth rates generally become more efficient.
+
+---
+
+## 1.6 Example — Linear Search
+
+Consider the following linear search algorithm:
+
+```text
+LinearSearch(A, n, key)
+
+for i = 0 to n-1
+    if A[i] == key
+        return i
+
+return -1
+```
+
+Here:
+
+```text
+n = number of elements in the array
+```
+
+The number of comparisons depends on the position of the required element.
+
+### Best case
+
+The element is found at the first position.
+
+```text
+Comparisons = 1
+```
+
+Complexity:
+
+```text
+O(1)
+```
+
+### Worst case
+
+The element is at the last position or is not present.
+
+```text
+Comparisons = n
+```
+
+Complexity:
+
+```text
+O(n)
+```
+
+Thus, input size `n` is directly used to determine the complexity.
+
+---
+
+# 1.7 Input Size in Sorting Algorithms
+
+Sorting algorithms also use `n` to represent the number of elements being sorted.
+
+For example, consider selection sort.
+
+If:
+
+```text
+n = number of elements
+```
+
+then selection sort performs comparisons proportional to:
+
+```text
+n(n - 1) / 2
+```
+
+Therefore:
+
+```text
+T(n) = Θ(n²)
+```
+
+This is why questions asking for the complexity of sorting algorithms commonly refer to an array of **`n` elements**.
+
+---
+
+# 1.8 PYQ Analysis
+
+## PYQ Status
+
+**No direct standalone PYQ found for "Input Size".**
+
+However, the concept is indirectly used in several algorithm-analysis questions.
+
+### 2024 — Selection Sort
+
+A question asks to analyze the complexity of **selection sort** and clearly indicate the assumptions.
+
+The algorithm works on an array containing **`n` numbers**.
+
+Therefore, understanding input size is necessary to derive its complexity.
+
+The analysis involves determining how the number of operations changes as `n` increases.
+
+---
+
+## 1.9 Indirectly Tested Through Other Topics
+
+Although there is no standalone question such as:
+
+> "What is input size?"
+
+the concept is required when solving questions involving:
+
+* Linear search
+* Insertion sort
+* Selection sort
+* Best-case analysis
+* Worst-case analysis
+* Average-case analysis
+* Counting operations
+* Asymptotic notation
+* Time complexity
+
+For example:
+
+```text
+Input size = n
+
+Linear Search:
+Best case  = O(1)
+Worst case = O(n)
+
+Selection Sort:
+Best case  = Θ(n²)
+Average    = Θ(n²)
+Worst case = Θ(n²)
+```
+
+---
+
+# 1.10 Important Points for Exam
+
+Remember the following:
+
+1. **Input size represents the amount of data given to an algorithm.**
+
+2. It is usually represented by **`n`**.
+
+3. Input size is the basis for calculating algorithm complexity.
+
+4. Running time is generally expressed as a function of input size:
+
+   ```text
+   T(n)
+   ```
+
+5. For arrays, `n` generally represents the number of elements.
+
+6. For graphs, input size may involve both `V` and `E`.
+
+7. Larger input sizes make the growth rate of an algorithm increasingly important.
+
+8. Input size is used extensively in best-case, average-case and worst-case analysis.
+
+---
+
+# 1.11 Exam-Ready Answer
+
+### What is Input Size?
+
+**Input size** is the amount of data provided to an algorithm as input. It is generally represented by `n` and is used as the basis for analyzing the time and space requirements of an algorithm.
+
+For example, if an algorithm operates on an array containing `n` elements, then `n` represents the input size. The running time of the algorithm can then be expressed as a function of `n`, such as `O(n)`, `O(n²)`, or `O(log n)`.
+
+Input size is important because the performance of an algorithm generally changes as the size of the input increases. It is therefore used in calculating best-case, average-case and worst-case complexity as well as asymptotic complexity.
+
+**Example:**
+
+For linear search on an array of `n` elements:
+
+```text
+Best case  = O(1)
+Worst case = O(n)
+```
+
+Thus, input size provides the basis for measuring and comparing the efficiency of algorithms.
+
+---
+
+# 1.12 Quick Revision
 
 ```text
 Input Size
@@ -383,11 +410,19 @@ Amount of input data
     ↓
 Usually represented by n
     ↓
-Determines number of operations
+Used to calculate T(n)
     ↓
-Used to calculate complexity
+Used in complexity analysis
+    ↓
+Best / Average / Worst Case
+    ↓
+Asymptotic Analysis
 ```
 
-### Remember
+### PYQ Frequency
 
-> **`n` does not mean "the value being processed"; it usually represents the size of the input.**
+**Direct PYQ: 0/4 years**
+
+**Importance: HIGH (as a supporting concept)**
+
+It should be understood because it is required to solve many of the other Unit II PYQs, particularly **algorithm analysis, counting operations, sorting, searching and asymptotic complexity**.
