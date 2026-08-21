@@ -91,11 +91,11 @@ A **Principal Component** is a new variable formed as a **linear combination of 
 
 For example:
 
-[
-PC_1=w_1X_1+w_2X_2+w_3X_3+\cdots+w_nX_n
-]
+$$
+PC_1 = w_1X_1 + w_2X_2 + w_3X_3 + \cdots + w_nX_n
+$$
 
-where (w_1,w_2,\ldots,w_n) are weights.
+where $(w_1, w_2, \ldots, w_n)$ are weights.
 
 ### Important Properties
 
